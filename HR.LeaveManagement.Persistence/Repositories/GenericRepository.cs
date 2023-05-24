@@ -11,7 +11,7 @@ namespace HR.LeaveManagement.Persistence.Repositories
 
         public GenericRepository(HrDatabaseContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public async Task CreateAsync(T entity)
@@ -33,8 +33,9 @@ namespace HR.LeaveManagement.Persistence.Repositories
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(q => q.Id == id);
-
+            return await _context.Set<T>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(q => q.Id == id);
         }
 
         public async Task UpdateAsync(T entity)
