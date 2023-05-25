@@ -3,11 +3,11 @@
     public class BaseHttpService
     {
         protected IClient _client;
-      
+    
         public BaseHttpService(IClient client)
         {
             _client = client;
-            
+           
         }
 
         protected Response<Guid> ConvertApiExceptions<Guid>(ApiException ex)
@@ -25,5 +25,6 @@
                 return new Response<Guid>() { Message = "Something went wrong, please try again later.", Success = false };
             }
         }
+
     }
 }

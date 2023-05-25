@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HR.LeaveManagement.BlazorUI.Contracts;
-using HR.LeaveManagement.BlazorUI.Models.LeaveTypes;
+using HR.LeaveManagement.BlazorUI.Models.LeaveType;
 using HR.LeaveManagement.BlazorUI.Services.Base;
 
 namespace HR.LeaveManagement.BlazorUI.Services
@@ -11,7 +11,7 @@ namespace HR.LeaveManagement.BlazorUI.Services
 
         public LeaveTypeService(IClient client, IMapper mapper) : base(client)
         {
-            _mapper = mapper;
+            this._mapper = mapper;
         }
 
         public async Task<Response<Guid>> CreateLeaveType(LeaveTypeVM leaveType)
@@ -37,7 +37,7 @@ namespace HR.LeaveManagement.BlazorUI.Services
         {
             try
             {
-               
+                
                 await _client.LeaveTypesDELETEAsync(id);
                 return new Response<Guid>() { Success = true };
             }
@@ -49,14 +49,14 @@ namespace HR.LeaveManagement.BlazorUI.Services
 
         public async Task<LeaveTypeVM> GetLeaveTypeDetails(int id)
         {
-            
+           
             var leaveType = await _client.LeaveTypesGETAsync(id);
             return _mapper.Map<LeaveTypeVM>(leaveType);
         }
 
         public async Task<List<LeaveTypeVM>> GetLeaveTypes()
         {
-           
+            
             var leaveTypes = await _client.LeaveTypesAllAsync();
             return _mapper.Map<List<LeaveTypeVM>>(leaveTypes);
         }
@@ -65,7 +65,7 @@ namespace HR.LeaveManagement.BlazorUI.Services
         {
             try
             {
-               
+                
                 var updateLeaveTypeCommand = _mapper.Map<UpdateLeaveTypeCommand>(leaveType);
                 await _client.LeaveTypesPUTAsync(id.ToString(), updateLeaveTypeCommand);
                 return new Response<Guid>()
@@ -79,6 +79,4 @@ namespace HR.LeaveManagement.BlazorUI.Services
             }
         }
     }
-
-
 }
